@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<int> sortJumbled(vector<int>& mapping, vector<int> &nums) {
+        vector<int>help;
+        for(auto a:nums){
+            help.push_back(a);
+        }
+        vector<int>ans;
+        for(int i=0;i<nums.size();i++){
+            vector<int>temp;
+            if(nums[i]==0){
+                temp.push_back(0);
+            }
+            else{
+                while(nums[i]>0){
+                    int j=nums[i]%10;
+                    temp.push_back(j);
+                    nums[i]/=10;
+                }
+            }
+            int num=0;
+            for(int i=temp.size()-1;i>=0;i--){
+                num=num*10+mapping[temp[i]];
+            }
+            ans.push_back(num);
+        }
+        unordered_map<int,vector<int>>mp;
+        for(int i=0;i<nums.size();i++){
+            mp[ans[i]].push_back(help[i]);
+        }
+        sort(ans.begin(),ans.end());
+        vector<int>res;
+        for(auto a : ans){
+            res.push_back(mp[a].front());
+            mp[a].erase(mp[a].begin());
+        }
+        return res;
+    }
+};
