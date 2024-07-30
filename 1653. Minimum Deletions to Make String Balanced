@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minimumDeletions(string s) {
+        int countA=0,countB=0;
+        for(auto x:s){
+            if(x=='a'){
+                countA++;
+            }
+        }
+        int ans=countA;
+        for(auto x:s){
+            if(x=='a'){
+                countA--;
+            }
+            else{
+                countB++;
+            }
+            ans=min(ans,countA+countB);
+        }
+        return ans;
+    }
+};
